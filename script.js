@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const sliderContent = document.querySelector(".slider-content");
   const slides = document.querySelectorAll(".slide-card");
+  const dots = document.querySelectorAll(".dot");
 
   const totalSlides = slides.length;
   let slideWidth = slides[0].offsetWidth;
@@ -9,6 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateSlideWidth() {
     slideWidth = slides[0].offsetWidth;
+  }
+
+  function updateActiveDot(index) {
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add("active");
+      } else {
+        dot.classList.remove("active");
+      }
+    });
   }
 
   function goToSlide(index) {
@@ -35,8 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
         currentSlideIndex * slideWidth
       }px)`;
     }
-
+    sliderContent.style.transform = `translateX(-${currentSlideIndex * 390}px)`;
     sliderContent.style.transition = "transform 0.5s ease-in-out";
+    updateActiveDot(currentSlideIndex);
 
     setTimeout(() => {
       isAnimating = false;
@@ -53,6 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelector(".prev").addEventListener("click", slideLeft);
   document.querySelector(".next").addEventListener("click", slideRight);
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", function () {
+      goToSlide(parseInt(this.getAttribute("data-index")));
+    });
+  });
 
   window.addEventListener("resize", () => {
     updateSlideWidth();
