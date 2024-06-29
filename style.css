@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.slider-container {
+    max-width: 1168px;
+    margin: 0px auto;
+}
+
+.sliders {
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+.slider {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.slider .slide-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #C7E2F5;
+    width: 369px !important;
+    gap: 10px;
+    padding: 10px;
+}
+
+.slider-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-card-and-title-group {
+    display: flex;
+    gap: 10px;
+}
