@@ -145,3 +145,34 @@
     color: white;
     background-color: #222020;
 }
+
+/* media quary */
+@media screen and (min-width: 0px) and (max-width: 520px) {
+    .dot-and-next-prev-button-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .dot-and-next-prev-button-group .dot {
+        background-color: #CBCBCB;
+        width: 8px;
+        height: 8px;
+
+    }
+    .dot-and-next-prev-button-group .dot-group .dot::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #CBCBCB;
+        border-radius: 100%;
+    }
+
+    .next-prev-button-group button {
+        border: none;
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
