@@ -74,3 +74,74 @@
     width: 100%;
     padding: 5px;
 }
+
+.dot-and-next-prev-button-group {
+    width: 50%;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-top: 20px;
+}
+
+.dot-and-next-prev-button-group .dot-group {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.dot-and-next-prev-button-group .dot-group .active {
+    background-color: #0071BD !important;
+}
+
+.dot-and-next-prev-button-group .dot {
+    background-color: #CBCBCB;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot-and-next-prev-button-group .dot-group .active::before {
+    position: absolute;
+    border: 1px solid #0071BD !important;
+}
+
+.dot-and-next-prev-button-group .dot-group .dot::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #CBCBCB;
+    border-radius: 100%;
+}
+
+.next-prev-button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.next-prev-button-group button {
+    border: none;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+}
+
+.next-prev-button-group .next {
+    color: white;
+    background-color: #0071BD;
+}
+
+.next-prev-button-group .prev {
+    color: white;
+    background-color: #222020;
+}
