@@ -104,6 +104,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .dot::before {
@@ -128,6 +129,7 @@
     width: 45px;
     height: 45px;
     font-size: 18px;
+    cursor: pointer;
 }
 
 .next {
@@ -168,5 +170,19 @@
         width: 35px;
         height: 35px;
         font-size: 14px;
+    }
+
+    .slide-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #C7E2F5;
+        min-width: 100% !important;
+        height: 280px;
+        gap: 10px;
+        padding: 10px;
+        box-shadow: 1px 10px 67px -71px rgba(0, 0, 0, 0.75);
+        -webkit-box-shadow: 1px 10px 67px -71px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 1px 10px 67px -71px rgba(0, 0, 0, 0.75);
     }
 }
