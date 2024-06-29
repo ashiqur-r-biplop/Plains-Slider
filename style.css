@@ -14,18 +14,18 @@
     overflow-x: hidden;
 }
 
-.slider {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+.slider-content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
     gap: 20px;
-    width: 100%;
 }
 
-.slider .slide-card {
+.slide-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     border: 1px solid #C7E2F5;
-    width: 369px !important;
+    min-width: 369px !important;
     height: 280px;
     gap: 10px;
     padding: 10px;
@@ -85,19 +85,18 @@
     padding-top: 20px;
 }
 
-.dot-and-next-prev-button-group .dot-group {
+.dot-group {
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 20px;
-
 }
 
-.dot-and-next-prev-button-group .dot-group .active {
+.dot.active {
     background-color: #0071BD !important;
 }
 
-.dot-and-next-prev-button-group .dot {
+.dot {
     background-color: #CBCBCB;
     width: 10px;
     height: 10px;
@@ -107,12 +106,7 @@
     align-items: center;
 }
 
-.dot-and-next-prev-button-group .dot-group .active::before {
-    position: absolute;
-    border: 1px solid #0071BD !important;
-}
-
-.dot-and-next-prev-button-group .dot-group .dot::before {
+.dot::before {
     content: "";
     position: absolute;
     top: 32px;
@@ -136,31 +130,30 @@
     font-size: 18px;
 }
 
-.next-prev-button-group .next {
+.next {
     color: white;
     background-color: #0071BD;
 }
 
-.next-prev-button-group .prev {
+.prev {
     color: white;
     background-color: #222020;
 }
 
-/* media quary */
-/* view mobile version in slder card  */
 @media screen and (min-width: 0px) and (max-width: 520px) {
     .dot-and-next-prev-button-group {
         width: 100%;
         flex-direction: column;
         gap: 20px;
     }
-    .dot-and-next-prev-button-group .dot {
+
+    .dot {
         background-color: #CBCBCB;
         width: 8px;
         height: 8px;
-
     }
-    .dot-and-next-prev-button-group .dot-group .dot::before {
+
+    .dot::before {
         content: "";
         position: absolute;
         top: 14px;
