@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const sliderContent = document.querySelector(".slider-content");
     const slides = document.querySelectorAll(".slide-card");
-    const dots = document.querySelectorAll(".dot");
+    const dots = document.querySelectorAll(".slider-dot");
     const prevButton = document.querySelector(".prev");
     const nextButton = document.querySelector(".next");
     const sliderContainer = document.querySelector(".slider-container");

@@ -80,7 +80,7 @@
     padding: 5px;
 }
 
-.dot-and-next-prev-button-group {
+.slider-dot-and-next-prev-button-group {
     width: 50%;
     margin-left: auto;
     display: flex;
@@ -90,18 +90,18 @@
     padding-top: 20px;
 }
 
-.dot-group {
+.slider-dot-group {
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 20px;
 }
 
-.dot.active {
+.slider-dot.active {
     background-color: #0071BD !important;
 }
 
-.dot {
+.slider-dot {
     background-color: #CBCBCB;
     width: 10px;
     height: 10px;
@@ -112,7 +112,7 @@
     cursor: pointer;
 }
 
-.dot::before {
+.slider-dot::before {
     content: "";
     position: absolute;
     top: 32px;
@@ -148,19 +148,19 @@
 }
 
 @media screen and (min-width: 0px) and (max-width: 520px) {
-    .dot-and-next-prev-button-group {
+    .slider-dot-and-next-prev-button-group {
         width: 100%;
         flex-direction: column;
         gap: 20px;
     }
 
-    .dot {
+    .slider-dot {
         background-color: #CBCBCB;
         width: 8px;
         height: 8px;
     }
 
-    .dot::before {
+    .slider-dot::before {
         content: "";
         position: absolute;
         top: 14px;
