@@ -1,129 +1,92 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const sliderContent = document.querySelector(".slider-content");
-    const slides = document.querySelectorAll(".slide-card");
-    const dots = document.querySelectorAll(".slider-dot");
-    const prevButton = document.querySelector(".prev");
-    const nextButton = document.querySelector(".next");
-    const sliderContainer = document.querySelector(".slider-container");
-  
-    const totalSlides = slides.length;
-    let slideWidth = slides[0].offsetWidth;
-    let currentSlideIndex = 0;
-    let isAnimating = false; // Flag to prevent rapid multiple clicks
-    let autoSlideInterval; // Variable to store the auto-slide interval
-  
-    function updateSlideWidth() {
-      slideWidth = slides[0].offsetWidth;
-    }
-  
-    function updateActiveDot(index) {
-      dots.forEach((dot, i) => {
-        if (i === index) {
-          dot.classList.add("active");
-        } else {
-          dot.classList.remove("active");
-        }
-      });
-    }
-  
-    function updateButtonColors(index) {
-      if (index === 0) {
-        prevButton.style.backgroundColor = "#222020";
-      } else {
-        prevButton.style.backgroundColor = "#0071BD";
-      }
-  
-      if (index >= totalSlides - 3) {
-        nextButton.style.backgroundColor = "#222020";
-      } else {
-        nextButton.style.backgroundColor = "#0071BD";
-      }
-    }
-  
-    function goToSlide(index) {
-      if (isAnimating) return;
-      isAnimating = true;
-  
-      if (index >= totalSlides - 3) {
-        currentSlideIndex = totalSlides - 3;
-      } else if (index < 0) {
-        currentSlideIndex = 0;
-      } else {
-        currentSlideIndex = index;
-      }
-  
-      const isMobile = window.innerWidth < 768;
-  
-      if (isMobile) {
-        sliderContent.style.transform = `translateX(-${
-          currentSlideIndex * 375
-        }px)`;
-      } else {
-        sliderContent.style.transform = `translateX(-${
-          currentSlideIndex * 390
-        }px)`;
-      }
-  
-      sliderContent.style.transition = "transform 0.5s ease-in-out";
-      updateActiveDot(currentSlideIndex);
-      updateButtonColors(currentSlideIndex);
-  
-      setTimeout(() => {
-        isAnimating = false;
-      }, 500);
-    }
-  
-    function slideLeft() {
-      goToSlide(currentSlideIndex - 1);
-    }
-  
-    function slideRight() {
-      goToSlide(currentSlideIndex + 1);
-    }
-  
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(() => {
-        // Slide right
-        slideRight();
-  
-        // Check if the current slide is the last one
-        if (currentSlideIndex === totalSlides - 3) {
-          // Pause the auto-slide for 3 seconds and reset to the first slide
-          clearInterval(autoSlideInterval);
-          setTimeout(() => {
-            goToSlide(0);
-            startAutoSlide(); // Restart the auto-slide
-          }, 3000); // Wait for 3 seconds before resetting to the first slide
-        }
-      }, 3000); // Slide every 3 seconds
-    }
-  
-    function stopAutoSlide() {
+const sliderContent = document.querySelector(".slider-content");
+const slides = document.querySelectorAll(".slide-card");
+const dots = document.querySelectorAll(".slider-dot");
+const prevButton = document.querySelector(".prev");
+const nextButton = document.querySelector(".next");
+const sliderContainer = document.querySelector(".slider-container");
+
+let currentSlideIndex = 0;
+let slideWidth = slides[0].offsetWidth;
+let autoSlideInterval; // Stores the auto-slide interval
+let isAnimating = false; // Prevents multiple clicks during animation
+
+// Updates the slide width dynamically on window resize
+function updateSlideWidth() {
+  slideWidth = slides[0].offsetWidth;
+}
+
+// Updates the active dot's appearance
+function updateActiveDot(index) {
+  dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+}
+
+// Updates button colors based on the current slide index
+function updateButtonColors(index) {
+  prevButton.style.backgroundColor = index === 0 ? "#222020" : "#1B3A57";
+  nextButton.style.backgroundColor =
+    index >= slides.length - 3 ? "#222020" : "#1B3A57";
+}
+
+// Moves the slider to a specific slide
+function goToSlide(index) {
+  if (isAnimating) return;
+  isAnimating = true;
+
+  const maxIndex = slides.length - 3;
+  currentSlideIndex = Math.max(0, Math.min(index, maxIndex));
+
+  const isMobile = window.innerWidth < 768;
+  const translateValue = currentSlideIndex * (isMobile ? window.innerWidth : 390);
+  sliderContent.style.transform = `translateX(-${translateValue}px)`;
+  sliderContent.style.transition = "transform 0.5s ease-in-out";
+
+  updateActiveDot(currentSlideIndex);
+  updateButtonColors(currentSlideIndex);
+
+  setTimeout(() => (isAnimating = false), 500);
+}
+
+// Handles previous and next button clicks
+function slideLeft() {
+  goToSlide(currentSlideIndex - 1);
+}
+function slideRight() {
+  goToSlide(currentSlideIndex + 1);
+}
+
+// Auto-slide functionality
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    slideRight();
+    if (currentSlideIndex === slides.length - 3) {
       clearInterval(autoSlideInterval);
+      setTimeout(() => {
+        goToSlide(0);
+        startAutoSlide();
+      }, 3000);
     }
-  
-    document.querySelector(".prev").addEventListener("click", slideLeft);
-    document.querySelector(".next").addEventListener("click", slideRight);
-  
-    dots.forEach((dot) => {
-      dot.addEventListener("click", function () {
-        goToSlide(parseInt(this.getAttribute("data-index")));
-      });
-    });
-  
-    window.addEventListener("resize", () => {
-      updateSlideWidth();
-      goToSlide(currentSlideIndex);
-    });
-  
-    // Start auto-slide
-    startAutoSlide();
-  
-    // Stop auto-slide on hover and restart on mouse leave
-    sliderContainer.addEventListener("mouseover", stopAutoSlide);
-    sliderContainer.addEventListener("mouseleave", startAutoSlide);
-  
-    updateSlideWidth();
-    updateButtonColors(currentSlideIndex); // Initialize button colors
-  });
-  
+  }, 3000);
+}
+function stopAutoSlide() {
+  clearInterval(autoSlideInterval);
+}
+
+// Event Listeners
+prevButton.addEventListener("click", slideLeft);
+nextButton.addEventListener("click", slideRight);
+dots.forEach((dot) => {
+  dot.addEventListener("click", () =>
+    goToSlide(parseInt(dot.getAttribute("data-index")))
+  );
+});
+window.addEventListener("resize", () => {
+  updateSlideWidth();
+  goToSlide(currentSlideIndex);
+});
+sliderContainer.addEventListener("mouseover", stopAutoSlide);
+sliderContainer.addEventListener("mouseleave", startAutoSlide);
+
+// Initialize slider
+updateSlideWidth();
+updateButtonColors(currentSlideIndex);
+startAutoSlide();
